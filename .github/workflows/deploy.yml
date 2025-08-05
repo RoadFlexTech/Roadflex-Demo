@@ -18,16 +18,16 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
-      - name: Build and Push Docker image
-        run: |
-          docker build -t "$IMAGE:latest" .
-          docker push "$IMAGE:latest"
+      - name: Build Docker image
+        run: docker build -t "$IMAGE:latest" -f my-node-app/Dockerfile my-node-app
+      - name: Push Docker image
+        run: docker push "$IMAGE:latest"
       - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy "${{ secrets.GCP_SERVICE }}" \
-            --image="$IMAGE:latest" \
-            --region="${{ secrets.GCP_REGION }}" \
-            --platform=managed \
-            --allow-unauthenticated
+        run: gcloud run deploy "${{ secrets.GCP_SERVICE }}" \
+               --image="$IMAGE:latest" \
+               --region="${{ secrets.GCP_REGION }}" \
+               --platform=managed \
+               --allow-unauthenticated
+
 
 
