@@ -25,11 +25,14 @@ jobs:
       - name: Push Docker image
         run: docker push "$IMAGE:latest"
       - name: Deploy to Cloud Run
-        run: gcloud run deploy "${{ secrets.GCP_SERVICE }}" \
-               --image="$IMAGE:latest" \
-               --region="${{ secrets.GCP_REGION }}" \
-               --platform=managed \
-               --allow-unauthenticated
+        run: gcloud run deploy "${{ secrets.GCP_SERVICE }}" --image="$IMAGE:latest" --region="${{ secrets.GCP_REGION }}" --platform=managed --allow-unauthenticated
+
+
+
+
+
+
+
 
 
 
