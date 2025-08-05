@@ -18,6 +18,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev --quiet
       - name: Build Docker image
         run: docker build -t "$IMAGE:latest" -f my-node-app/Dockerfile my-node-app
       - name: Push Docker image
@@ -28,6 +30,7 @@ jobs:
                --region="${{ secrets.GCP_REGION }}" \
                --platform=managed \
                --allow-unauthenticated
+
 
 
 
