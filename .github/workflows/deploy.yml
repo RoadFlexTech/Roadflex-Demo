@@ -2,8 +2,7 @@ name: Deploy to Cloud Run
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
@@ -37,4 +36,5 @@ jobs:
             --region="${{ secrets.GCP_REGION }}" \
             --platform=managed \
             --allow-unauthenticated
+
 
